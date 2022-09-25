@@ -119,6 +119,7 @@ select {
   .row {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
     width: 100%;
     margin: 0 auto;
@@ -130,7 +131,7 @@ select {
   .card {
     width: 170px;
     position: relative;
-    left: 30px;
+   
 
     text-align: center;
   }
