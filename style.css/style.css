@@ -65,6 +65,15 @@ select {
   padding-top: 100px;
 }
 
+.row-1 h4{
+ position: relative;
+ top: 23px;
+ text-transform: uppercase;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.936);
+  width: 100%;
+  }
+
 .row {
   display: flex;
   gap: 20px;
