@@ -1,33 +1,112 @@
 "use strict";
 
+// const regions = [...provencie];
+
+// //======Dynamic funtion====
+
+// function renderOptions() {
+//   regions.sort(); /// sortlab beradi
+//   regions.forEach((item) => {
+//     const option = createElement("option", "list-option", item);
+
+//     $("#region").appendChild(option);
+//   });
+// }
+
+// renderOptions();
+
+// /// ===== send region name===
+
+// $("#region").addEventListener("change", (e) => {
+//   localStorage.setItem("region", e.target.value);
+//   const city = localStorage.getItem("region");
+
+//   $('#city').innerHTML=city
+
+//   switch (city.toLocaleLowerCase()) {
+//    case "farg'ona":
+//    getData("qo'qon");
+//    getWeek("qo'qon")
+//    break;
+// case "qashqadaryo":
+//    getData("qarshi");
+//    break;
+// case "surxondaryo":
+//    getData("termiz");
+//    break;
+// case "xorazm":
+//    getData("urganch");
+//    break;
+// case "sirdaryo":
+//    getData("guliston");
+//    break;
+// case "buxoro":
+//    getData("buxoro");
+//    break;
+// case "andijon":
+//    getData("andijon");
+//    break;
+// case "samarqand":
+//    getData("samarqand");
+//    break;
+// case "jizzax":
+//    getData("jizzax");
+//    break;
+//    case "navoiy":
+//    getData("navoiy");
+//    break;
+// case "toshkent":
+//    getData("toshkent");
+//    break;
+
+// default:
+//    getData('toshkent');
+//   }
+
+//   getData(e.target.value);
+// });
+
+// // ========= Request Api ===========
+
+// async function getData(select) {
+//   const response = await fetch(
+//     `https://islomapi.uz/api/present/day?region=${select}`
+//   );
+//   const result = await response.json();
+
+//    localStorage.setItem('data' ,JSON.stringify(result))
+//   console.log(result);
+// }
+
 const regions = [...provencie];
 
-// ============== DYNAMIC OPTIONS ===========
+
+//dynamic option
 
 function renderOptions() {
-   regions.sort();
-   regions.forEach((item) => {
-      const option = createElement("option", "item-option", item);
-      $("#region").appendChild(option);
-   });
+  regions.forEach((item) => {
+    const option = createElement("option", "item-option", item);
+
+
+    $("#region").appendChild(option);
+  });
 }
+
+
+///
 renderOptions();
 
-// getData("toshkent");
-// ============= SEND region name ============////
-
 $("#region").addEventListener("change", (e) => {
-   e.preventDefault();
+    e.preventDefault()
+  localStorage.setItem("region", e.target.value);
+  
+  const city = localStorage.getItem("region");
 
-   localStorage.setItem("region", e.target.value);
-   const city = localStorage.getItem("region");
 
-
-
-   switch (city.toLowerCase()) {
-      case "farg'ona":
+   
+  switch (city.toLowerCase()) {
+    case "farg'ona":
          getData("qo'qon");
-         getWeek("qo'qon")
          break;
       case "qashqadaryo":
          getData("qarshi");
@@ -62,67 +141,117 @@ $("#region").addEventListener("change", (e) => {
 
       default:
          getData('toshkent');
-   }
-
+  }
 });
 
-// ============== REQUEST API =======================////
+/// ==== request api====
 
 async function getData(select) {
-   console.log(select);
-   const response = await fetch(
-      `https://islomapi.uz/api/present/day?region=${select}`
-   );
-   const result = await response.json();
+  const today = await fetch(
+    `https://islomapi.uz/api/present/day?region=${select}`);
 
-   localStorage.setItem("data", JSON.stringify(result));
+     const dayResult= await today.json();
 
-   renderData();
+
+
+   
+     const week = await fetch(
+      `https://islomapi.uz/api/present/week?region=${select}`);
+  
+       const weekResult= await week.json();
+  
+       localStorage.setItem("data", JSON.stringify(dayResult))
+       localStorage.setItem("week", JSON.stringify(weekResult))
+         
+     renderData()
+
+     console.log(dayResult);
+     console.log(weekResult);
+   
 }
 
-// ============== RENDER DATA =================///
 
-function renderData() {
-   const data = JSON.parse(localStorage.getItem("data"));
 
-   console.log(data);
+/// === render data ====
+
+
+
+function renderData(){ 
+   $('#week').innerHTML=''
+
+const data=JSON.parse(localStorage.getItem("data"));
+const week = JSON.parse(localStorage.getItem("week"))
+
+
 
    const {
-      region,
-      date,
-      times: {
+
+     region,
+     date,
+      times:{
          asr,
+         hufton,
          peshin,
-         shom_iftor,
-         tong_saharlik,
          quyosh,
-         hufton
-      },
-   } = data;
+         shom_iftor,
+         tong_saharlik
+      }
+   }=data;
+   $('#city').innerHTML=region
 
-   $("#city").innerHTML = region;
-   $(".date").innerHTML = date;
+ $a('.card-time')[0].innerHTML=tong_saharlik
+ $a('.card-time')[1].innerHTML=quyosh
+ $a('.card-time')[2].innerHTML=peshin
+ $a('.card-time')[3].innerHTML=asr
+ $a('.card-time')[4].innerHTML=shom_iftor
+ $a('.card-time')[5].innerHTML=hufton
 
-   $a(".card-time")[0].innerHTML = tong_saharlik;
-   $a(".card-time")[1].innerHTML = quyosh;
-   $a(".card-time")[2].innerHTML = peshin;
-   $a(".card-time")[3].innerHTML = asr;
-   $a(".card-time")[4].innerHTML = shom_iftor;
-   $a(".card-time")[5].innerHTML = hufton;
+ $('.date').innerHTML=date
+
+
+
+
+
+//====week render
+
+week.forEach((item)=>{
+   const tr=createElement('tr', 'td-item' ,
+
+   `
+   <tr>
+   <td>${item.region}</td> <td>${item.date.substring(0,10)}</td> <td>${item.weekday}</td> <td>${item.times.tong_saharlik}</td> <td>${item.times.quyosh}</td>
+    <td>${item.times.peshin}</td> <td>${item.times.asr}</td>
+    <td>${item.times.shom_iftor}</td> <td>${item.times.hufton}</td>
+   </tr>
+   
+   `)
+
+   $('#week').appendChild(tr)
+
+})
+
+
+
+
+
+ 
+
+    
 }
 
-renderData();
+renderData()
 
-// ================= CLOCK ===============///
 
-function clock() {
-   setInterval(() => {
-      const date = new Date();
-      $(
-         "#hour"
-      ).innerHTML = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-   }, 1000);
+
+// ====== hours ====
+
+function clock(){
+   const date=new Date()
+
+   setInterval(()=>{
+      const dat=new Date()
+      $('#hour').innerHTML=`${dat.getHours()}: ${dat.getMinutes()}: ${dat.getSeconds()}`
+   },1000)
 }
 
-clock();
-//=====
+clock()
