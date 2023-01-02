@@ -149,6 +149,7 @@ $("#region").addEventListener("change", (e) => {
 async function getData(select) {
   const today = await fetch(
     `https://islomapi.uz/api/present/day?region=${select}`);
+   
 
      const dayResult= await today.json();
 
@@ -197,6 +198,7 @@ const week = JSON.parse(localStorage.getItem("week"))
          tong_saharlik
       }
    }=data;
+   
    $('#city').innerHTML=region
 
  $a('.card-time')[0].innerHTML=tong_saharlik
@@ -242,16 +244,22 @@ week.forEach((item)=>{
 renderData()
 
 
+const loader = document.querySelector('.l')
+
+
+setTimeout(() => {
+   loader.style.display="none"
+}, 5300);
 
 // ====== hours ====
 
-function clock(){
-   const date=new Date()
+// function clock(){
+//    const date=new Date()
 
-   setInterval(()=>{
-      const dat=new Date()
-      $('#hour').innerHTML=`${dat.getHours()}: ${dat.getMinutes()}: ${dat.getSeconds()}`
-   },1000)
-}
+//    setInterval(()=>{
+//       const date=new Date()
+//       $('#hour').innerHTML=`${date.getHours()}: ${date.getMinutes()}: ${date.getSeconds()}`
+//    },1000)
+// }
 
-clock()
+// clock()
