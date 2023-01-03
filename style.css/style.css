@@ -166,9 +166,8 @@ th {
   .header h1 {
     color: #ffffd0;
 
-    font-size: 29px;
+    font-size: 20px;
 
-    color: #5c008f;
   }
 
   .card {
@@ -261,6 +260,7 @@ th {
 
   .box-1 h2 {
     color: #ffffd0;
+    font-size: 20px;
   }
 
   .box-2 {
@@ -299,7 +299,7 @@ th {
   .l {
     width: 100%;
     height: 130vh;
-    background-color: #111;
+    background-color: #08050e;
     position: absolute;
     margin-left: -3px;
     z-index: 99999999999;
