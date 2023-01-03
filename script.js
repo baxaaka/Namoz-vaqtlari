@@ -1,11 +1,18 @@
 "use strict";
 
+
+const loader = document.querySelector('.l')
+
+
+setTimeout(() => {
+   loader.style.display="none"
+}, 4000);
 // const regions = [...provencie];
 
 // //======Dynamic funtion====
 
 // function renderOptions() {
-//   regions.sort(); /// sortlab beradi
+//   regions.sort(); /// sortlab beradii
 //   regions.forEach((item) => {
 //     const option = createElement("option", "list-option", item);
 
@@ -243,13 +250,6 @@ week.forEach((item)=>{
 
 renderData()
 
-
-const loader = document.querySelector('.l')
-
-
-setTimeout(() => {
-   loader.style.display="none"
-}, 4000);
 
 // ====== hours ====
 
