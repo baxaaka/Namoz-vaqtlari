@@ -249,7 +249,7 @@ const loader = document.querySelector('.l')
 
 setTimeout(() => {
    loader.style.display="none"
-}, 5300);
+}, 4000);
 
 // ====== hours ====
 
